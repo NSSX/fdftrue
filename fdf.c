@@ -115,7 +115,13 @@ int main(int argc, char **argv)
   int x2;
   int y2;
   int maxline;
-  
+  int color;
+  int val;
+  int val2;
+
+  color = 0x00FFFF;
+  val2 = 0;
+  val = 0;
   maxline = 0;
   x = 300;
   y = 60;
@@ -145,7 +151,7 @@ int main(int argc, char **argv)
   coord = (char ***)malloc(sizeof(char **) * i + 1);
   while(index < i)
     {
-      coord[index] = (char **)malloc(sizeof(char *) * 4);
+      coord[index] = (char **)malloc(sizeof(char *) * 5);
       index++;
     }
   index = 0;
@@ -191,45 +197,70 @@ int main(int argc, char **argv)
 	      j++;
 	    }
 	}
-
       index++;
     }
   index = 0;  
   win = mlx_new_window(mlx, 900, 900, "42");
-  while(line[index] != '\n')
+  while(tab[index][0] != '\n')
     {
-      if(line[index] != ' ')
+      if(tab[index][0] != ' ')
 	maxline++;
       index++;
     }
-  
   index = 0;
   //Tracer une ligne avec 2 point
-  while(index < i)
+    while(index + 1 < i)
     {
-      if(coord[index + 1])
+      if(index + 1 < i)
 	{
 	  x1 = ft_atoi(coord[index][0]);
 	  y1 = ft_atoi(coord[index][1]);
 	  x2 = ft_atoi(coord[index + 1][0]);
 	  y2 = ft_atoi(coord[index + 1][1]);
+	  val = ft_atoi(coord[index][2]);	  
+	  val2 = ft_atoi(coord[index + 1][2]);
+	  
+	 if(val != 0)
+	    {
+	      color = 0xFFFFFF;
+	    }
+	 else if(val == 10 && val2 == 0)
+	   {
+	     color = 0xFFFFFF;
+	   }
+	  else
+	    {
+	      color = 0x99CC33;
+	    }
 	  if(coord[index][2][0] != '\n')
 	    {
-	      draw_line2(mlx, win, x1, y1, x2, y2, 0x00FFFF);
-	    }
+	      draw_line2(mlx, win, x1, y1, x2, y2, color);
+	      }
 	}
-      if(coord[index + maxline + 1])
+      if(index + maxline + 1 < i)
 	{
 	  x1 = ft_atoi(coord[index][0]);
 	  y1 = ft_atoi(coord[index][1]);
 	  x2 = ft_atoi(coord[index + maxline + 1][0]);
 	  y2 = ft_atoi(coord[index + maxline + 1][1]);
-	  draw_line2(mlx, win, x1, y1, x2, y2, 0x00FFFF);
-	}
+	  val = ft_atoi(coord[index][2]);
+	  val2 = ft_atoi(coord[index + maxline + 1][2]);
+	 if(val != 0)
+	    {
+	      color = 0xFFFFFF;
+	    }
+	 else if(val == 10 && val2 == 0)
+	   {
+	     color = 0xFFFFFF;
+	   }
+	  else
+	    {
+	      color = 0x99CC33;
+	    }
+	 draw_line2(mlx, win, x1, y1, x2, y2, color);
+	 }
       index++;
-    }
-  
-  //  draw_line2(mlx, win, 320, 313, 300,900, 0x00FFFF);
+      }
   //Fonction pour utiliser le clavier
   mlx_key_hook(win, close_mlx, 0);
   //Boucle pour tenir la fenetre
