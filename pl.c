@@ -112,7 +112,9 @@ int close_mlx(int keycode, t_struct *param)
     {
       xd += 40; 
       mlx_destroy_window(param->mlx, param->win);
-      param->win = mlx_new_window(param->mlx, 900, 900, "42");      
+      param->win = mlx_new_window(param->mlx, 900, 900, "42");
+      if(param->zoom == 0)
+	mlx_string_put(param->mlx, param->win, 100, 10, 0x00FFFF, "A partir de la le zoom va retourner la piece");
       set_coord(param->coord, param->i, xd, yd, param->zoom);
       draw_with_tab(param->coord, param->i, param->maxline, param);
       mlx_key_hook(param->win, close_mlx, param);
@@ -124,6 +126,8 @@ int close_mlx(int keycode, t_struct *param)
       yd += 40;
       mlx_destroy_window(param->mlx, param->win);
       param->win = mlx_new_window(param->mlx, 900, 900, "42");
+      if(param->zoom == 0)
+	mlx_string_put(param->mlx, param->win, 100, 10, 0x00FFFF, "A partir de la le zoom va retourner la piece");
       set_coord(param->coord, param->i, xd, yd, param->zoom);
       draw_with_tab(param->coord, param->i, param->maxline, param);
       mlx_key_hook(param->win, close_mlx, param);
@@ -135,6 +139,8 @@ int close_mlx(int keycode, t_struct *param)
       yd -= 40;
       mlx_destroy_window(param->mlx, param->win);
       param->win = mlx_new_window(param->mlx, 900, 900, "42");
+      if(param->zoom == 0)
+	mlx_string_put(param->mlx, param->win, 100, 10, 0x00FFFF, "A partir de la le zoom va retourner la piece");
       set_coord(param->coord, param->i, xd, yd, param->zoom);
       draw_with_tab(param->coord, param->i, param->maxline, param);
       mlx_key_hook(param->win, close_mlx, param);
@@ -146,6 +152,8 @@ int close_mlx(int keycode, t_struct *param)
       xd -= 40;
       mlx_destroy_window(param->mlx, param->win);
       param->win = mlx_new_window(param->mlx, 900, 900, "42");
+      if(param->zoom == 0)
+	mlx_string_put(param->mlx, param->win, 100, 10, 0x00FFFF, "A partir de la le zoom va retourner la piece");
       set_coord(param->coord, param->i, xd, yd, param->zoom);
       draw_with_tab(param->coord, param->i, param->maxline, param);
       mlx_key_hook(param->win, close_mlx, param);
@@ -156,7 +164,7 @@ int close_mlx(int keycode, t_struct *param)
     }
   if(keycode == 12)
     {
-      param->zoom += 20;
+      param->zoom += 5;
       mlx_destroy_window(param->mlx, param->win);
       param->win = mlx_new_window(param->mlx, 900, 900, "42");
       set_coord(param->coord, param->i, xd, yd, param->zoom);
@@ -165,9 +173,11 @@ int close_mlx(int keycode, t_struct *param)
     }
   if(keycode == 14)
     {
-      param->zoom -= 20;
+      param->zoom -= 5;
       mlx_destroy_window(param->mlx, param->win);
       param->win = mlx_new_window(param->mlx, 900, 900, "42");
+      if(param->zoom == 0)
+	mlx_string_put(param->mlx, param->win, 100, 10, 0x00FFFF, "A partir de la le zoom va retourner la piece");
       set_coord(param->coord, param->i, xd, yd, param->zoom);
       draw_with_tab(param->coord, param->i, param->maxline, param);
       mlx_key_hook(param->win, close_mlx, param);
@@ -263,7 +273,7 @@ char ***set_coord(char ***coord, int i, int x, int y, int zoom)
 	    {
 	      v = ft_atoi(coord[index][2]);
 	      xtemp = x + v;
-	      ytemp = y - ((v * 2) + 1);
+	      ytemp = y - ((v * 2)  + 1);
 	      j++;
 	    }
 	}
@@ -380,6 +390,7 @@ int main(int argc, char **argv)
   draw_with_tab(coord, i, maxline, mystruct);
   ////////////////////////////
 
+  
   //Fonction pour utiliser le clavier
   mlx_key_hook(mystruct->win, close_mlx, mystruct);
   ///////////////////////////
