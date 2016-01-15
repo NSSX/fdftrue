@@ -477,9 +477,13 @@ void draw_with_tab(char ***coord, int i, int maxline, t_struct *param)
   int color;
   int val1;
   int futurindex;
+  int val2;
 
+
+  val1 = 0;
+  val2 = 0;
   futurindex = 0;
-  color = 0x00FFFF;
+  color = 0xA0FFFF;
   index = 0;
   x1 = 0;
   x2 = 0;
@@ -494,22 +498,28 @@ void draw_with_tab(char ***coord, int i, int maxline, t_struct *param)
 	  x2 = ft_atoi(coord[index + 1][0]);
 	  y2 = ft_atoi(coord[index + 1][1]);
 	  val1 = ft_atoi(coord[index][2]);
-	  /* if(val1 != 0)
+	  val2 = ft_atoi(coord[index + 1][2]);
+	  /*if(val1 == 0 && val2 == 0)
 	    {
-	      color = 0xFFFFFF;
+	      color = 0x00FFFF;
 	    }
+	  else if(val1 == 0 && val2 != 0)
+	    {
+	      color = 0x9900FF;	      
+	    }
+	  else if(val1 != 0 && val2 == 0 )
+	    {
+	      color = 0x9900FF;
+	    }
+	  else if(val1 != 0 && val2 != 0 )
+	    {
+	      color = 0xCC0000;
+	    }	  
 	  else
 	  color = 0x00FFFF;*/
-	  /// if(coord[index][2][0] == '\n')
-	  // // {
-	    //   mlx_string_put(param->mlx, param->win, x1 - 10, y1 - 10, 0xFFFFFF, "salut");
-	  // }
-	  //	  mlx_string_put(param->mlx, param->win, x1 - 10, y1 - 10, 0xFFFFFF, coord[index][2]);
-	  //mlx_string_put(param->mlx, param->win, x1 - 10, y1 - 10, 0xFFFFFF, coord[index][2]);
-  //      mlx_string_put(param->mlx, param->win, x2 - 10, y2 - 10, 0xFFFFFF, coord[index][2]);
 	  if(coord[index + 1][2][0] != '\n')
 	    {
-	      draw_line2(param->mlx, param->win, x1, y1, x2, y2, color);
+	      draw_line2(param->mlx, param->win, x1, y1, x2, y2, color + ((val1 + val2) * 0xA0));
 	    }
 	  else
 	    futurindex++;
@@ -520,9 +530,29 @@ void draw_with_tab(char ***coord, int i, int maxline, t_struct *param)
 	  y1 = ft_atoi(coord[index][1]);
 	  x2 = ft_atoi(coord[index + maxline + 1][0]);
 	  y2 = ft_atoi(coord[index + maxline + 1][1]);
+	  val1 = ft_atoi(coord[index][2]);
+	  val2 = ft_atoi(coord[index + maxline + 1][2]);
+	  /* if(val1 == 0 && val2 == 0)
+	    {
+	      color = 0x00FFFF;
+	    }
+	  else if(val1 == 0 && val2 != 0)
+	    {
+	      color = 0x9900FF;
+	    }
+	  else if(val1 != 0 && val2 == 0 )
+	    {
+	      color = 0x9900FF;
+	    }
+	  else if(val1 != 0 && val2 != 0 )
+	    {
+	      color = 0xCC0000;
+	    }
+	  else
+	  color = 0x00FFFF;*/
 	  if(coord[index + maxline + 1][2][0] != '\n')
 	    {
-	      draw_line2(param->mlx, param->win, x1, y1, x2, y2, color);	
+	      draw_line2(param->mlx, param->win, x1, y1, x2, y2, color + ((val1 + val2) * 0xA0));	
 	    }
 	}
       if(futurindex > 0)
